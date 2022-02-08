@@ -47,6 +47,11 @@ require('./express-sessions')(app)
 // Routes
 
 // ::::
+app.use('/', require('./controllers/index'))
+app.use('/login', require('./controllers/login'))
+app.use('/menu', require('./controllers/menu'))
+app.use('/stock', require('./controllers/stock'))
+app.use('/orders', require('./controllers/orders'))
 // Create your routes here
 // ::::
 
