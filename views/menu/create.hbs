@@ -1,1 +1,58 @@
-<p>items-create page</p>
+
+<div class="container mt-3">
+	<h1>Create a Menu Item</h1>
+	<form action="/menu/items" method="post">
+		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label"
+				>Title</label
+			>
+			<input name="title" type="text" class="form-control" required />
+		</div>
+		<div class="mb-3">
+			<label for="exampleFormControlTextarea1" class="form-label"
+				>Description</label
+			>
+			<textarea name="description"
+				class="form-control"
+				id="exampleFormControlTextarea1"
+				rows="6"
+				min
+				length="20"
+				required
+			></textarea>
+		</div>
+		<label for="exampleFormControlInput1">Allergens</label>
+	<input type="text" name="allergens" class="form-control"required>
+		<div class="mb-3">
+			<label for="exampleFormControlTextarea1" class="form-label"
+				>Price</label
+			>
+			<div class="input-group mb-3">
+
+				<input
+					name="price"
+					type="number"
+					class="form-control"
+					aria-label="price"
+					aria-describedby="basic-addon1"
+					min="1"
+				/>
+			</div>
+			<div class="mb-3">
+				<label for="exampleFormControlInput1" class="form-label"
+					>Add Photo</label
+				>
+				<input
+					type="url"
+					name="photos"
+					class="form-control mb-1"
+					placeholder="http://"
+					required
+				/>
+
+
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+</div>
