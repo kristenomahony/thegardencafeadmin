@@ -1,12 +1,12 @@
 
 <div class="container mt-3">
 	<h1>Create a Menu Item</h1>
-	<form action="/menu/items" method="post">
+	<form action="/items" method="post">
 		<div class="mb-3">
 			<label for="exampleFormControlInput1" class="form-label"
-				>Title</label
+				>Name</label
 			>
-			<input name="title" type="text" class="form-control" required />
+			<input name="name" type="text" class="form-control" required />
 		</div>
 		<div class="mb-3">
 			<label for="exampleFormControlTextarea1" class="form-label"
@@ -21,8 +21,10 @@
 				required
 			></textarea>
 		</div>
-		<label for="exampleFormControlInput1">Allergens</label>
-	<input type="text" name="allergens" class="form-control"required>
+		<label for="exampleFormControlInput1">Time</label>
+	<input type="text" name="time" class="form-control"required>
+	<label for="exampleFormControlInput1">Quantity</label>
+	<input type="number" name="quantity" class="form-control"required>
 		<div class="mb-3">
 			<label for="exampleFormControlTextarea1" class="form-label"
 				>Price</label
@@ -44,7 +46,7 @@
 				>
 				<input
 					type="url"
-					name="photos"
+					name="photo"
 					class="form-control mb-1"
 					placeholder="http://"
 					required

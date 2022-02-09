@@ -16,6 +16,7 @@ module.exports = mongoose.model('items', {
   },
   quantity: {
     type: Number,
+    default: 1,
     required: true
   },
   price: {

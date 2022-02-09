@@ -1,1 +1,40 @@
-<p>menu page</p>
+<h1>Menu</h1>
+{{#each items as |item|}}
+<h2>{{item.time}}</h2>
+
+				<div class="card mb-3 mt-5">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img
+								src="{{item.photo}}"
+								class="img-fluid rounded-start img-thumbnail"
+
+							/>
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">{{item.name}}</h5>
+								<span> e{{item.price}}</span>
+								<p class="card-text">
+									{{item.description}}
+								</p>
+								<form action="/items/{{item._id}}/edit" method="get">
+								<button  class="btn btn-outline-secondary">
+									Update
+								</button>
+							</form>
+							<form action="/items/{{item._id}}" method="get">
+								<button
+									type="submit"
+									class="btn btn-outline-success success"
+								>
+									View
+								</button>
+							</form>
+								<button class="btn btn-danger m-3" type="submit">
+									Delete Item
+								</button>
+							</div>
+						</div>
+					</div>
+{{/each}}

@@ -43,10 +43,11 @@ router.get('/create', (req, res, next) => {
   }
 })
 
-router.post('/create', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     let item = await Items.create(req.body)
-    res.redirect(`menu/items/${item._id}`)
+
+    res.redirect(`/items`)
   } catch (err) {
     next(err)
   }
