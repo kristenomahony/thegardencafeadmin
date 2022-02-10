@@ -1,1 +1,17 @@
-<p>order-list page</p>
+<div class="list-group">
+	{{#each orders as |order|}}
+  <a href="orders/{{order._id}}/update" role="button" class="list-group-item list-group-item-action" aria-current="true">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{order.customer.name}}</h5>
+      <h7> Order Number {{order.order_number}}</h7>
+			{{#each order.content as |menu|}}
+				<h4 class="mb-1">{{menu.item.name}}</h4>
+				<p class="mb-1"> x {{menu.quantity}}</p>
+			{{/each}}
+			<h7>Total Price: {{order.total_price}}</h7>
+		</div>
+	</a>
+	{{/each}}
+	<div>
+</div>
+</div>

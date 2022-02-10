@@ -22,21 +22,22 @@ router.get('/logout', (req, res, next) => {
   }
 })
 
-// router.post('/login', async (req, res, next) => {
-//   try {
-//     let loggedAdmin = await Admins.findOne({
-//       name: req.body.name,
-//       password: req.body.password
-//     })
-//     if (loggedAdmin) {
-//       req.login(loggedAdmin, err => {
-//         res.redirect('/home')
-//       })
-//     } else {
-//       throw new Error('Name or password is wrong!')
-//     }
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+router.post('/', async (req, res, next) => {
+  res.redirect('/home')
+  // try {
+  //   let loggedAdmin = await Admins.findOne({
+  //     name: req.body.name,
+  //     password: req.body.password
+  //   })
+  //   if (loggedAdmin) {
+  //     req.login(loggedAdmin, err => {
+  //       res.redirect('/home')
+  //     })
+  //   } else {
+  //     throw new Error('Name or password is wrong!')
+  //   }
+  // } catch (err) {
+  //   next(err)
+  // }
+})
 module.exports = router

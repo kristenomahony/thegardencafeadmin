@@ -51,6 +51,7 @@ app.use('/', require('./controllers/index'))
 app.use('/login', require('./controllers/login'))
 app.use('/items', require('./controllers/items'))
 app.use('/orders', require('./controllers/orders'))
+app.use('/home', require('./controllers/home'))
 // Create your routes here
 // ::::
 

@@ -1,40 +1,107 @@
-<h1>Menu</h1>
-{{#each items as |item|}}
-<h2>{{item.time}}</h2>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand btn btn-outline-secondary" href="/items">Menu</a>
+		<a class="navbar-brand btn btn-outline-secondary" href="/orders">Orders</a>
+		<a class="navbar-brand btn btn-outline-secondary" href="/items/create">Create new Menu Item</a>
+    <form class="d-flex" method ="get" action ="/items">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<div class="container mt-3">
+	<div class="row row-cols-4">
 
-				<div class="card mb-3 mt-5">
-					<div class="row g-0">
-						<div class="col-md-4">
-							<img
-								src="{{item.photo}}"
-								class="img-fluid rounded-start img-thumbnail"
 
-							/>
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h5 class="card-title">{{item.name}}</h5>
-								<span> e{{item.price}}</span>
-								<p class="card-text">
-									{{item.description}}
-								</p>
-								<form action="/items/{{item._id}}/edit" method="get">
-								<button  class="btn btn-outline-secondary">
-									Update
-								</button>
-							</form>
-							<form action="/items/{{item._id}}" method="get">
-								<button
-									type="submit"
-									class="btn btn-outline-success success"
-								>
-									View
-								</button>
-							</form>
-								<button class="btn btn-danger m-3" type="submit">
-									Delete Item
-								</button>
-							</div>
-						</div>
-					</div>
+
+		{{#each breakfast_items as |item|}}
+
+		<div class="col">
+			<div class="card mb-3">
+				<span>{{item.time}}</span>
+				<img
+					src="{{item.photo}}"
+					class="card-img-top"
+				/></a>
+				<div class="card-body">
+					<h5 class="card-title">{{item.name}}</h5>
+					<p>{{item.description}}</p>
+					<span>${{item.price}}</span>
+					<form action="items/{{item._id}}/update" method="get">
+					<button  class="btn btn-outline-secondary">
+						Update
+					</button>
+				</form>
+				<form action="items/{{item._id}}?_method=delete" method="post">
+					<button class="btn btn-danger m-3">
+						Delete Item
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
 {{/each}}
+
+
+{{#each lunch_items as |item|}}
+
+<div class="col">
+	<div class="card mb-3">
+		<span>{{item.time}}</span>
+		<img
+			src="{{item.photo}}"
+			class="card-img-top"
+		/></a>
+		<div class="card-body">
+			<h5 class="card-title">{{item.name}}</h5>
+			<p>{{item.description}}</p>
+
+			<span>${{item.price}}</span>
+			<form action="items/{{item._id}}/update" method="get">
+			<button  class="btn btn-outline-secondary">
+				Update
+			</button>
+		</form>
+		<form action="items/{{item._id}}?_method=delete" method="post">
+			<button class="btn btn-danger m-3">
+				Delete Item
+			</button>
+		</form>
+	</div>
+</div>
+</div>
+
+{{/each}}
+
+{{#each allday_items as |item|}}
+
+<div class="col">
+	<div class="card mb-3">
+		<span>{{item.time}}</span>
+		<img
+			src="{{item.photo}}"
+			class="card-img-top"
+		/></a>
+		<div class="card-body">
+			<h5 class="card-title">{{item.name}}</h5>
+			<p>{{item.description}}</p>
+
+			<span>${{item.price}}</span>
+			<form action="items/{{item._id}}/update" method="get">
+			<button  class="btn btn-outline-secondary">
+				Update
+			</button>
+		</form>
+		<form action="items/{{item._id}}?_method=delete" method="post">
+			<button class="btn btn-danger m-3">
+				Delete Item
+			</button>
+		</form>
+	</div>
+</div>
+</div>
+
+{{/each}}
+</div>
+</div>

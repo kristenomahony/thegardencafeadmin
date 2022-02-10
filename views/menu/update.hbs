@@ -1,1 +1,61 @@
-<p>items-update page</p>
+<div class="container mt-3">
+	<h1>Update a Menu Item</h1>
+	<form action="/items/{{item._id}}?_method=patch" method="post">
+		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label"
+				>Name</label
+			>
+			<input name="name" type="text" class="form-control" required value="{{item.name}}"/>
+		</div>
+		<div class="mb-3">
+			<label for="exampleFormControlTextarea1" class="form-label"
+				>Description</label
+			>
+			<input name="description"
+				class="form-control"
+				id="exampleFormControlTextarea1"
+				rows="6"
+				min
+				length="20"
+				required value="{{item.description}}"
+
+			></input>
+		</div>
+		<label for="exampleFormControlInput1">Time</label>
+	<input type="text" name="time" class="form-control"required value="{{item.time}}">
+	<label for="exampleFormControlInput1">Quantity</label>
+	<input type="number" name="quantity" class="form-control"required value="{{item.quantity}}">
+		<div class="mb-3">
+			<label for="exampleFormControlTextarea1" class="form-label"
+				>Price</label
+			>
+			<div class="input-group mb-3">
+
+				<input
+					name="price"
+					type="number"
+					class="form-control"
+					aria-label="price"
+					aria-describedby="basic-addon1"
+					min="1"
+					value="{{item.price}}"
+				/>
+			</div>
+			<div class="mb-3">
+				<label for="exampleFormControlInput1" class="form-label"
+					>Add Photo</label
+				>
+				<input
+					type="url"
+					name="photo"
+					class="form-control mb-1"
+					value="{{item.photo}}"
+					required
+				/>
+
+
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+</div>

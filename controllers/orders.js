@@ -7,8 +7,13 @@ const Orders = require('../models/orders')
 router.get('/', async (req, res, next) => {
   try {
     let orders = await Orders.find({
-      date: req.query.date
+      // date: req.query.date
     })
+      .populate({
+        path: 'customer content.item'
+      })
+      .sort('date')
+    // console.log(JSON.stringify(orders, null, 2))
     res.render('orders/list', { orders })
   } catch (err) {
     next(err)
