@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const Admins = require('../models/admins')
 const Orders = require('../models/orders')
+const Users = require('../models/users')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -22,7 +23,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id/update', async (req, res, next) => {
   try {
-    let order = await Orders.findById(req.params.id)
+    let order = await Orders.findById(req.params.id).populate({
+      path: 'customer content.item '
+    })
 
     res.render('orders/update', { order })
   } catch (err) {
@@ -41,11 +44,15 @@ router.delete('/:id', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
   try {
-    let updatedOrder = await Orders.findByIdAndUpdate(req.params.id, req.body, {
-      new: true
+    console.log('FROM THE FORM', req.body)
+    let order = await await Orders.findById(req.params.id)
+    console.log('IN DB', JSON.stringify(order, null, 2))
+    order.content = order.content.map((e, i) => {
+      e.quantity = req.body.quantity[i]
+      return e
     })
-
-    res.redirect(`orders/list/${updatedItem._id}`)
+    await order.save()
+    res.redirect(`/orders`)
   } catch (err) {
     next(err)
   }

@@ -5,10 +5,15 @@
       <h5 class="mb-1">{{order.customer.name}}</h5>
       <h7> Order Number {{order.order_number}}</h7>
 			{{#each order.content as |menu|}}
-				<h4 class="mb-1">{{menu.item.name}}</h4>
-				<p class="mb-1"> x {{menu.quantity}}</p>
+			<ul>
+				<li class="mb-1 order">{{menu.item.name}}x {{menu.quantity}}</li>
+
+
+
+			</ul>
+
 			{{/each}}
-			<h7>Total Price: {{order.total_price}}</h7>
+			<h7>Total Price: e{{order.total_price}}</h7>
 		</div>
 	</a>
 	{{/each}}

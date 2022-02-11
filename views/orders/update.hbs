@@ -3,60 +3,38 @@
     <div class="col">
     </div>
     <div class="col mt-5">
-			<div class="card text-center login" style="width: 18rem;">
+			<div class="card text-center" style="width: 18rem;">
 			  <div class="card-body">
 					<form action="/orders/{{order._id}}?_method=patch" method="post">
-						{{#each orders as|order|}}
+
+
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label"
-								>Customer Name</label
-							>
-							<input name="name" type="text" value="{{order.customer.name}}" class="form-control"/>
+  						<label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+  						<input type="text" name="user" class="form-control" id="formGroupExampleInput" value="{{order.customer.name}}">
 						</div>
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label"
-								>Order Number</label
-							>
-							<input name="order_number" type="number" value="Disabled readonly input" class="form-control" value="{{orders.order_number}}"/>
-						</div>
-						{{#each orders.content as |menu|}}
-						<input name="name" type="text" class="form-control" value="{{menu.item.name}}"/>
-						<input name="quantity" type="number"  class="form-control" value="{{menu.item.quantity}}"/>
+  						<label for="formGroupExampleInput2" class="form-label">Order Number</label>
+  						<input type="text" name="order_number" class="form-control" id="formGroupExampleInput2" value="{{order.order_number}}">
+					</div>
+					<div class="mb-3">
+						<label for="formGroupExampleInput" class="form-label">Menu Items</label>
+						{{#each order.content as |menu|}}
+							<p>{{@index}}</p>
+							<input type="text" class="form-control me-2" id="formGroupExampleInput" value="{{menu.item.name}}">
+							<label for="formGroupExampleInput" class="form-label">Quantity</label>
+							<input class="form-control me-2" name="quantity" type="number" value="{{menu.quantity}}">
+							<label for="formGroupExampleInput" class="form-label">Price</label>
+							<input class="form-control me-2" type="text" value="{{menu.item.price}}">
 						{{/each}}
 					</div>
+					<div class="mb-3">
+						<label for="formGroupExampleInput2" class="form-label">Total Price</label>
+						<input type="text"name="total_price" class="form-control" id="formGroupExampleInput2" value="{{order.total_price}}">
+				</div>
 
-					<label for="exampleFormControlInput1" class="form-label"
-						>Total</label
-					>
-					<input name="price" type="number"  class="form-control" value="{{orders.total_price}}"/>
-						<button class="btn btn-secondary mb-3">Update Item</button>
-						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label"
-								>Menu Item</label
-							>
-							<input name="name" type="text" class="form-control"/>
-						</div>
-						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label"
-								>Quantity</label
-							>
-							<input name="quantity" type="number" class="form-control"/>
-							<button class="btn btn-secondary mb-3">Add Item</button>
-						</div>
-						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label"
-								>Menu Item</label
-							>
-							<input name="name" type="text" class="form-control"/>
-						</div>
-						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label"
-								>Quantity</label
-							>
-							<input name="quantity" type="number" class="form-control"/>
-							<button class="btn btn-secondary mb-3">Add Item</button>
-						</div>
-						{{/each}}
+				<button type="submit" class="btn btn-outline-secondary">
+					Update
+				</button>
 					</form>
 
 				</div>
