@@ -1,6 +1,7 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand btn btn-outline-secondary" href="/items">Menu</a>
+		<span class="navbar-brand btn btn-outline-secondary">{{user.name}}</span>
 		<a class="navbar-brand btn btn-outline-secondary" href="/orders">Orders</a>
 		<a class="navbar-brand btn btn-outline-secondary" href="/items/create">Create new Menu Item</a>
     <form class="d-flex" method ="get" action ="/items">
@@ -11,7 +12,35 @@
 </nav>
 <div class="container mt-3">
 	<div class="row row-cols-4">
+		{{#each allday_items as |item|}}
 
+		<div class="col">
+			<div class="card mb-3">
+				<span>{{item.time}}</span>
+				<img
+					src="{{item.photo}}"
+					class="card-img-top"
+				/></a>
+				<div class="card-body">
+					<h5 class="card-title">{{item.name}}</h5>
+					<p>{{item.description}}</p>
+
+					<span>${{item.price}}</span>
+					<form action="items/{{item._id}}/update" method="get">
+					<button  class="btn btn-outline-secondary">
+						Update
+					</button>
+				</form>
+				<form action="items/{{item._id}}?_method=delete" method="post">
+					<button class="btn btn-danger m-3">
+						Delete Item
+					</button>
+				</form>
+			</div>
+		</div>
+		</div>
+
+		{{/each}}
 
 
 		{{#each breakfast_items as |item|}}
@@ -74,7 +103,7 @@
 
 {{/each}}
 
-{{#each allday_items as |item|}}
+{{#each dinner_items as |item|}}
 
 <div class="col">
 	<div class="card mb-3">

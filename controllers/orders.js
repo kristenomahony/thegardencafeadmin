@@ -24,7 +24,7 @@ router.get('/:id/update', async (req, res, next) => {
   try {
     let order = await Orders.findById(req.params.id)
 
-    res.render('order/update', { order })
+    res.render('orders/update', { order })
   } catch (err) {
     next(err)
   }

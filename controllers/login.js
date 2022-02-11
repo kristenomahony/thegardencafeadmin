@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-// const passport = require('passport')
+const passport = require('passport')
 // const Admins = require('../models/admins')
 
 router.get('/', (req, res) => {
@@ -22,22 +22,30 @@ router.get('/logout', (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  res.redirect('/home')
-  // try {
-  //   let loggedAdmin = await Admins.findOne({
-  //     name: req.body.name,
-  //     password: req.body.password
-  //   })
-  //   if (loggedAdmin) {
-  //     req.login(loggedAdmin, err => {
-  //       res.redirect('/home')
-  //     })
-  //   } else {
-  //     throw new Error('Name or password is wrong!')
-  //   }
-  // } catch (err) {
-  //   next(err)
-  // }
-})
+router.post(
+  '/',
+  passport.authenticate('google', { scope: ['profile', 'email'] }),
+  (req, res, next) => {
+    console.log(admin)
+  }
+)
+
+// router.post('/', async (req, res, next) => {
+//   res.redirect('/home')
+//   // try {
+//   //   let loggedAdmin = await Admins.findOne({
+//   //     name: req.body.name,
+//   //     password: req.body.password
+//   //   })
+//   //   if (loggedAdmin) {
+//   //     req.login(loggedAdmin, err => {
+//   //       res.redirect('/home')
+//   //     })
+//   //   } else {
+//   //     throw new Error('Name or password is wrong!')
+//   //   }
+//   // } catch (err) {
+//   //   next(err)
+//   // }
+// })
 module.exports = router

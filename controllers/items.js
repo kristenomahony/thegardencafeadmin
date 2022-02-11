@@ -6,14 +6,24 @@ const Items = require('../models/items')
 
 router.get('/', async (req, res, next) => {
   try {
-    let items = await Items.find({
-      name: { $regex: req.query.search || '', $options: 'i' }
-    })
-    let breakfast_items = items.filter(e => e.time == 'breakfast')
-    let lunch_items = items.filter(e => e.time == 'lunch')
-    let allday_items = items.filter(e => e.time == 'allday')
-
-    res.render('menu/items', { breakfast_items, lunch_items, allday_items })
+    if (!req.isAuthenticated()) {
+      res.redirect('/login')
+    } else {
+      let items = await Items.find({
+        name: { $regex: req.query.search || '', $options: 'i' }
+      })
+      let breakfast_items = items.filter(e => e.time == 'breakfast')
+      let lunch_items = items.filter(e => e.time == 'lunch')
+      let allday_items = items.filter(e => e.time == 'allday')
+      let dinner_items = items.filter(e => e.time == 'dinner')
+      res.render('menu/items', {
+        breakfast_items,
+        lunch_items,
+        allday_items,
+        dinner_items,
+        user: req.user
+      })
+    }
   } catch (err) {
     next(err)
   }

@@ -4,8 +4,9 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 module.exports = mongoose.model('admins', {
   email: {
     type: String,
-    rewuired: true
+    required: true
   },
+  name: String,
   google_id: {
     type: String,
     requird: true
