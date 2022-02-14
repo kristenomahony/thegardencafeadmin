@@ -44,14 +44,21 @@ router.delete('/:id', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
   try {
-    console.log('FROM THE FORM', req.body)
-    let order = await await Orders.findById(req.params.id)
-    console.log('IN DB', JSON.stringify(order, null, 2))
-    order.content = order.content.map((e, i) => {
+    let newOrder = await Orders.findByIdAndUpdate(
+      req.params.id,
+      // req.body.name,
+      // req.body.quantity,
+      {
+        new: true
+      }
+    )
+    // console.log('IN DB', JSON.stringify(order, null, 2))
+    newOrder.content = newOrder.content.map((e, i) => {
       e.quantity = req.body.quantity[i]
       return e
+      // let addedItem = await Orders.findByIdAndUpdate(req.params.id, req.body,{new:true})
     })
-    await order.save()
+    await newOrder.save()
     res.redirect(`/orders`)
   } catch (err) {
     next(err)

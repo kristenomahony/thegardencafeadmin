@@ -1,9 +1,7 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-    </div>
+
     <div class="col mt-5">
-			<div class="card text-center" style="width: 18rem;">
+			<div class="card">
 			  <div class="card-body">
 					<form action="/orders/{{order._id}}?_method=patch" method="post">
 
@@ -19,11 +17,11 @@
 					<div class="mb-3">
 						<label for="formGroupExampleInput" class="form-label">Menu Items</label>
 						{{#each order.content as |menu|}}
-							<p>{{@index}}</p>
-							<input type="text" class="form-control me-2" id="formGroupExampleInput" value="{{menu.item.name}}">
-							<label for="formGroupExampleInput" class="form-label">Quantity</label>
+							<!-- <p>{{@index}}</p> -->
+							<input type="text" class="form-control me-2 mt-3" id="formGroupExampleInput" value="{{menu.item.name}}">
+							<label for="formGroupExampleInput" class="form-label mt-3">Quantity</label>
 							<input class="form-control me-2" name="quantity" type="number" value="{{menu.quantity}}">
-							<label for="formGroupExampleInput" class="form-label">Price</label>
+							<label for="formGroupExampleInput" class="form-label mt-3">Price</label>
 							<input class="form-control me-2" type="text" value="{{menu.item.price}}">
 						{{/each}}
 					</div>
@@ -31,8 +29,13 @@
 						<label for="formGroupExampleInput2" class="form-label">Total Price</label>
 						<input type="text"name="total_price" class="form-control" id="formGroupExampleInput2" value="{{order.total_price}}">
 				</div>
-
-				<button type="submit" class="btn btn-outline-secondary">
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label">Add Item</label>
+					<input type="text" name="name" class="form-control" id="formGroupExampleInput">
+				</div>
+				<label for="formGroupExampleInput" class="form-label">Quantity</label>
+				<input class="form-control me-2" name="quantity" type="number">
+				<button type="submit" class="btn btn-outline-secondary mt-3">
 					Update
 				</button>
 					</form>
@@ -40,7 +43,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="col">
-		</div>
-  </div>
+
+
 </div>

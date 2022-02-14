@@ -1,22 +1,23 @@
-<div class="list-group">
-	{{#each orders as |order|}}
-  <a href="orders/{{order._id}}/update" role="button" class="list-group-item list-group-item-action" aria-current="true">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{order.customer.name}}</h5>
-      <h7> Order Number {{order.order_number}}</h7>
-			{{#each order.content as |menu|}}
-			<ul>
-				<li class="mb-1 order">{{menu.item.name}}x {{menu.quantity}}</li>
+<!-- <div class="container"> -->
+  <!-- <div class="row row-cols-4"> -->
+		{{#each orders as |order|}}
+    <!-- <div class="col"> -->
+<div class="card" style="width: 18rem;">
+
+	<a href="orders/{{order._id}}/update" role="button" class="list-group-item list-group-item-action" aria-current="true">
 
 
+    <h5 class="card-title">{{order.customer.name}}</h5>
+    <span class="card-text">Order Number {{order.order_number}}</span>
 
-			</ul>
-
-			{{/each}}
-			<h7>Total Price: e{{order.total_price}}</h7>
-		</div>
-	</a>
+  <ul class="list-group list-group-flush">
+		{{#each order.content as |menu|}}
+    <li class="list-group-item">{{menu.item.name}}x {{menu.quantity}}</li>
+		{{/each}}
+  </ul>
+  <h7>Total Price: e{{order.total_price}}</h7>
 	{{/each}}
-	<div>
 </div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
