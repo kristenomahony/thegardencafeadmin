@@ -4,16 +4,19 @@ const passport = require('passport')
 const Admins = require('../models/admins')
 const Orders = require('../models/orders')
 const Users = require('../models/users')
+const Items = require('../models/items')
+const stripe = require('stripe')(
+  'sk_test_51KT1S3I0M9eDOSrmZbHI7UmKC46DxkPOrSPIRwr25MwizN1uDQRDhdPGHsq0oPE3ILrajniKfgRsh97MDIDSKVHd00eVDUks1L'
+)
 
 router.get('/', async (req, res, next) => {
   try {
-    let orders = await Orders.find({
-      // date: req.query.date
-    })
+    let orders = await Orders.find({})
       .populate({
         path: 'customer content.item'
       })
       .sort('date')
+    console.log(JSON.stringify(orders, null, 2))
     // console.log(JSON.stringify(orders, null, 2))
     res.render('orders/list', { orders })
   } catch (err) {
@@ -24,7 +27,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id/update', async (req, res, next) => {
   try {
     let order = await Orders.findById(req.params.id).populate({
-      path: 'customer content.item '
+      path: 'customer content.item'
     })
 
     res.render('orders/update', { order })
@@ -42,26 +45,41 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
+// POST
+
 router.patch('/:id', async (req, res, next) => {
   try {
-    let newOrder = await Orders.findByIdAndUpdate(
-      req.params.id,
-      // req.body.name,
-      // req.body.quantity,
-      {
-        new: true
+    let order = await Orders.findById(req.params.id)
+      .populate({
+        path: 'customer'
+      })
+      .populate({ path: ' content.item' })
+
+    // console.log('newOrder', JSON.stringify(newOrder, null, 2))
+
+    let newAmountToCharge = 0
+    order.content.map((e, i) => {
+      if (e.quantity < req.body.quantity[i]) {
+        let diff = (req.body.quantity[i] - e.quantity) * e.item.price
+        order.total_price += diff
+        newAmountToCharge += diff
       }
-    )
-    // console.log('IN DB', JSON.stringify(order, null, 2))
-    newOrder.content = newOrder.content.map((e, i) => {
       e.quantity = req.body.quantity[i]
       return e
-      // let addedItem = await Orders.findByIdAndUpdate(req.params.id, req.body,{new:true})
     })
-    await newOrder.save()
+    console.log(JSON.stringify(order, null, 2))
+    await order.save()
+
+    const paymentIntent = await stripe.charges.create({
+      customer: order.customer.stripe_id,
+      amount: newAmountToCharge * 100,
+      currency: 'eur'
+    }) // Stripe charge newAmountToCharge
+    // res.redirect(`/orders`)
     res.redirect(`/orders`)
   } catch (err) {
     next(err)
   }
 })
+// app.listen(3002, () => console.log('Node server listening on port 3002!'))
 module.exports = router

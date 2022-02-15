@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const hbs = require('hbs')
 const hbsUtils = require('hbs-utils')(hbs)
 const methodOverride = require('method-override')
+const stripe = require('stripe')('sk_test_26PHem9AhJZvU623DfE1x4sd')
 require('dotenv').config()
 
 // Build the App
@@ -31,6 +32,8 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'))
+app.use(express.json())
 
 // Database
 mongoose.connect(

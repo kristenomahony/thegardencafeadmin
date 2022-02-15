@@ -22,7 +22,8 @@
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "stripe": "^8.202.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"

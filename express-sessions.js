@@ -4,6 +4,7 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const Admins = require('./models/admins')
+const stripe = require('stripe')('sk_test_26PHem9AhJZvU623DfE1x4sd')
 
 module.exports = app => {
   passport.serializeUser((user, done) => {
@@ -60,3 +61,6 @@ module.exports = app => {
   )
   app.use(passport.session())
 }
+
+// app.use(express.static('public'))
+// app.use(express.json())
