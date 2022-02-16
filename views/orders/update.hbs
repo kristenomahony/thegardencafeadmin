@@ -16,6 +16,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="formGroupExampleInput" class="form-label">Menu Items</label>
+						<form action="/orders/{{order._id}}?_method=delete" method="post">
 						{{#each order.content as |menu|}}
 							<!-- <p>{{@index}}</p> -->
 							<input type="text" class="form-control me-2 mt-3" id="formGroupExampleInput" value="{{menu.item.name}}">
@@ -23,6 +24,11 @@
 							<input class="form-control me-2" name="quantity" type="number" value="{{menu.quantity}}">
 							<label for="formGroupExampleInput" class="form-label mt-3">Price</label>
 							<input class="form-control me-2" type="text" value="{{menu.item.price}}">
+							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+									<button class="btn btn-danger m-3 justify-content-md-end">Delete Item</button>
+							</div>
+
+						</form>
 						{{/each}}
 					</div>
 					<div class="mb-3">
@@ -39,16 +45,22 @@
 				</div>
 			</div>
 
-			<div class="">
-				<form class="" action="/orders" method="post">
+			<div class="card mb-3">
+				<form class="" action="/orders/{{order._id}}" method="post">
 					<input type="hidden" name="order" value="{{order._id}}">
-					<div class="mb-3">
-						<label for="exampleFormControlInput1" class="form-label">Add Item</label>
-						<input type="text" name="item" class="form-control" id="formGroupExampleInput">
-					</div>
-					<label for="formGroupExampleInput" class="form-label">Quantity</label>
+
+
+						<label for="exampleFormControlInput1" class="form-label m-3">Item Name</label>
+						<select type="text" name="item_id" class="form-select mb-3" id="formGroupExampleInput" aria-label="Default select example">>
+							{{#each items as |item|}}
+							<option value="{{item._id}}" {{#selected}}selected="selected"{{/selected}} >{{item.name}}</option>
+							{{/each}}
+						</select>
+
+
+					<label for="formGroupExampleInput" class="form-label m-3">Quantity</label>
 					<input class="form-control me-2" name="quantity" type="number">
-					<button type="submit" class="btn btn-outline-secondary mt-3">
+					<button type="submit" class="btn btn-outline-secondary  m-3">
 						Add
 					</button>
 				</form>

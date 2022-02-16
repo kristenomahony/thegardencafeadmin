@@ -16,8 +16,8 @@ router.get('/', async (req, res, next) => {
         path: 'customer content.item'
       })
       .sort('date')
-    console.log(JSON.stringify(orders, null, 2))
     // console.log(JSON.stringify(orders, null, 2))
+    console.log(JSON.stringify(orders, null, 2))
     res.render('orders/list', { orders })
   } catch (err) {
     next(err)
@@ -29,8 +29,8 @@ router.get('/:id/update', async (req, res, next) => {
     let order = await Orders.findById(req.params.id).populate({
       path: 'customer content.item'
     })
-
-    res.render('orders/update', { order })
+    let items = await Items.find({})
+    res.render('orders/update', { order, items })
   } catch (err) {
     next(err)
   }
@@ -45,7 +45,35 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
-// POST
+router.post('/:id', async (req, res, next) => {
+  try {
+    // let order = await Orders.findById(req.params.id).populate({
+    //   path: 'customer content.item'
+    // })
+    // console.log(order.content)
+    let orders = await Orders.updateOne(
+      { _id: req.params.id },
+      {
+        $push: {
+          content: {
+            $each: [{ item: req.body.item_id, quantity: req.body.quantity }]
+          }
+        }
+      }
+    ).populate('content.item')
+    // let item = await Items.findOne({
+    // name: req.body.name
+    // quantity: req.body.quantity
+    // })
+    // console.log(orders)
+    // order.content.item.push('item')
+    // updatedOrder.push(item)
+    res.redirect('/orders')
+  } catch (err) {
+    next(err)
+  }
+})
+// POST with id , take req.body item name/quantity push into order
 
 router.patch('/:id', async (req, res, next) => {
   try {
