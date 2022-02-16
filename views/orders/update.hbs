@@ -1,71 +1,51 @@
 <div class="container">
-
-    <div class="col mt-5">
-			<div class="card">
-			  <div class="card-body">
-					<form action="/orders/{{order._id}}?_method=patch" method="post">
-
-
-						<div class="mb-3">
-  						<label for="exampleFormControlInput1" class="form-label">Customer Name</label>
-  						<input type="text" name="user" class="form-control" id="formGroupExampleInput" value="{{order.customer.name}}">
-						</div>
-						<div class="mb-3">
-  						<label for="formGroupExampleInput2" class="form-label">Order Number</label>
-  						<input type="text" name="order_number" class="form-control" id="formGroupExampleInput2" value="{{order.order_number}}">
+	<div class="col mt-5">
+		<div class="card">
+			<div class="card-body">
+				<form action="/orders/{{order._id}}?_method=patch" method="post">
+					<div class="mb-3">
+  					<label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+  					<input type="text" name="user" class="form-control" id="formGroupExampleInput" value="{{order.customer.name}}">
+					</div>
+					<div class="mb-3">
+						<label for="formGroupExampleInput2" class="form-label">Order Number</label>  				<input type="text" name="order_number" class="form-control" id="formGroupExampleInput2" value="{{order.order_number}}">
 					</div>
 					<div class="mb-3">
 						<label for="formGroupExampleInput" class="form-label">Menu Items</label>
-						<form action="/orders/{{order._id}}?_method=delete" method="post">
 						{{#each order.content as |menu|}}
-							<!-- <p>{{@index}}</p> -->
 							<input type="text" class="form-control me-2 mt-3" id="formGroupExampleInput" value="{{menu.item.name}}">
 							<label for="formGroupExampleInput" class="form-label mt-3">Quantity</label>
 							<input class="form-control me-2" name="quantity" type="number" value="{{menu.quantity}}">
 							<label for="formGroupExampleInput" class="form-label mt-3">Price</label>
-							<input class="form-control me-2" type="text" value="{{menu.item.price}}">
-							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-									<button class="btn btn-danger m-3 justify-content-md-end">Delete Item</button>
-							</div>
-
-						</form>
+							<input class="form-control me-2" type="text" value="e{{menu.item.price}}">
 						{{/each}}
-					</div>
-					<div class="mb-3">
-						<label for="formGroupExampleInput2" class="form-label">Total Price</label>
-						<input type="text"name="total_price" class="form-control" id="formGroupExampleInput2" value="{{order.total_price}}">
-				</div>
-
-
-				<button type="submit" class="btn btn-outline-secondary mt-3">
-					Update
-				</button>
+						</div>
+						<div class="mb-3">
+							<label for="formGroupExampleInput2" class="form-label">Total Price</label>
+							<input type="text"name="total_price" class="form-control" id="formGroupExampleInput2" value="e{{order.total_price}}">
+						</div>
+							<button type="submit" class="btn btn-outline-secondary mt-3">Update</button>
 					</form>
-
+				  <form action="/orders/{{order._id}}?_method=delete" method="post">
+			 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+							<button class="btn btn-danger m-3 justify-content-md-end">Delete Order</button>
+						</div>
+					</form>
 				</div>
 			</div>
-
 			<div class="card mb-3">
 				<form class="" action="/orders/{{order._id}}" method="post">
 					<input type="hidden" name="order" value="{{order._id}}">
-
-
-						<label for="exampleFormControlInput1" class="form-label m-3">Item Name</label>
-						<select type="text" name="item_id" class="form-select mb-3" id="formGroupExampleInput" aria-label="Default select example">>
-							{{#each items as |item|}}
-							<option value="{{item._id}}" {{#selected}}selected="selected"{{/selected}} >{{item.name}}</option>
-							{{/each}}
-						</select>
-
-
-					<label for="formGroupExampleInput" class="form-label m-3">Quantity</label>
-					<input class="form-control me-2" name="quantity" type="number">
-					<button type="submit" class="btn btn-outline-secondary  m-3">
-						Add
-					</button>
+					<label for="exampleFormControlInput1" class="form-label m-3">Item Name</label>
+					<select type="text" name="item_id" class="form-select mb-3" id="formGroupExampleInput" aria-label="Default select example">>
+						{{#each items as |item|}}
+						<option value="{{item._id}}" {{#selected}}selected="selected"{{/selected}} >{{item.name}}</option>
+						{{/each}}
+				</select>
+				<label for="formGroupExampleInput" class="form-label m-3">Quantity</label>
+				<input class="form-control me-2" required name="quantity" type="number">
+				<button type="submit" class="btn btn-outline-secondary  m-3">Add</button>
 				</form>
 			</div>
 		</div>
-
-
 </div>

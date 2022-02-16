@@ -39,7 +39,7 @@ router.get('/:id/update', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     let deletedOrder = await Orders.findByIdAndDelete(req.params.id)
-    res.redirect('orders/list')
+    res.redirect('/orders')
   } catch (err) {
     next(err)
   }
@@ -47,11 +47,7 @@ router.delete('/:id', async (req, res, next) => {
 
 router.post('/:id', async (req, res, next) => {
   try {
-    // let order = await Orders.findById(req.params.id).populate({
-    //   path: 'customer content.item'
-    // })
-    // console.log(order.content)
-    let orders = await Orders.updateOne(
+    let order = await Orders.updateOne(
       { _id: req.params.id },
       {
         $push: {
@@ -61,19 +57,16 @@ router.post('/:id', async (req, res, next) => {
         }
       }
     ).populate('content.item')
-    // let item = await Items.findOne({
-    // name: req.body.name
-    // quantity: req.body.quantity
-    // })
-    // console.log(orders)
-    // order.content.item.push('item')
-    // updatedOrder.push(item)
+
+    //or// let order = await Orders.findById(req.params.id)
+    // order.content.push({ item: req.body.item_id, quantity: req.body.quantity })
+    // order.save()
+
     res.redirect('/orders')
   } catch (err) {
     next(err)
   }
 })
-// POST with id , take req.body item name/quantity push into order
 
 router.patch('/:id', async (req, res, next) => {
   try {
@@ -86,24 +79,37 @@ router.patch('/:id', async (req, res, next) => {
     // console.log('newOrder', JSON.stringify(newOrder, null, 2))
 
     let newAmountToCharge = 0
+    let newAmountToRefund = 0
     order.content.map((e, i) => {
       if (e.quantity < req.body.quantity[i]) {
         let diff = (req.body.quantity[i] - e.quantity) * e.item.price
         order.total_price += diff
         newAmountToCharge += diff
+      } else if (e.quantity > req.body.quantity[i]) {
+        let diff = (e.quantity - req.body.quantity[i]) * e.item.price
+        order.total_price -= diff
+        newAmountToRefund += diff
+      } else {
+        e.quantity = req.body.quantity[i]
+        return e
       }
-      e.quantity = req.body.quantity[i]
-      return e
     })
-    console.log(JSON.stringify(order, null, 2))
+    console.log(newAmountToRefund)
+    // console.log(JSON.stringify(order, null, 2))
     await order.save()
 
-    const paymentIntent = await stripe.charges.create({
-      customer: order.customer.stripe_id,
-      amount: newAmountToCharge * 100,
-      currency: 'eur'
-    }) // Stripe charge newAmountToCharge
-    // res.redirect(`/orders`)
+    if (newAmountToCharge > newAmountToRefund) {
+      const paymentIntent = await stripe.charges.create({
+        customer: order.customer.stripe_id,
+        amount: newAmountToCharge * 100,
+        currency: 'eur'
+      }) // Stripe charge newAmountToCharge
+    } else {
+      const refund = await stripe.refunds.create({
+        charge: order.charge_id,
+        amount: newAmountToRefund * 100
+      })
+    }
     res.redirect(`/orders`)
   } catch (err) {
     next(err)

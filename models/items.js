@@ -26,5 +26,9 @@ module.exports = mongoose.model('items', {
   time: {
     type: String,
     required: true
+  },
+  charge_id: {
+    type: ObjectId,
+    required: true
   }
 })

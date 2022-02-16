@@ -33,5 +33,9 @@ module.exports = mongoose.model('orders', {
     type: Date,
     default: Date.now
     // required: true
+  },
+  charge_id: {
+    type: String,
+    required: true
   }
 })
