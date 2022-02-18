@@ -20,7 +20,7 @@ module.exports = mongoose.model('orders', {
       },
       quantity: {
         type: Number,
-        default: 1,
+        // default: 1,
         required: true
       }
     }
@@ -35,7 +35,7 @@ module.exports = mongoose.model('orders', {
     // required: true
   },
   charge_id: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   }
 })

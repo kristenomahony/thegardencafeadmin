@@ -20,8 +20,18 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 app.set('view options', { layout: 'layouts/main' })
 hbs.registerPartials(__dirname + '/views/partials', err => {})
+
+hbs.registerHelper('sum', function(array) {
+  let s = 0
+  for (let i = 0; i < array.length; i++) {
+    s = s + array[i]
+  }
+
+  return s
+})
+
 hbsUtils.registerWatchedPartials(__dirname + '/views/partials')
-require('./hbs-helpers')
+//require('./hbs-helpers')
 
 // Middleware
 app.use(logger('tiny'))

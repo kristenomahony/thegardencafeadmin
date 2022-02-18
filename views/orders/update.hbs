@@ -10,19 +10,24 @@
 					<div class="mb-3">
 						<label for="formGroupExampleInput2" class="form-label">Order Number</label>  				<input type="text" name="order_number" class="form-control" id="formGroupExampleInput2" value="{{order.order_number}}">
 					</div>
-					<div class="mb-3">
-						<label for="formGroupExampleInput" class="form-label">Menu Items</label>
+					<div class="container-fluid mb-3 mt-3">
+						<label for="formGroupExampleInput mb-5" class="form-label">Menu Items</label>
 						{{#each order.content as |menu|}}
-							<input type="text" class="form-control me-2 mt-3" id="formGroupExampleInput" value="{{menu.item.name}}">
-							<label for="formGroupExampleInput" class="form-label mt-3">Quantity</label>
-							<input class="form-control me-2" name="quantity" type="number" value="{{menu.quantity}}">
-							<label for="formGroupExampleInput" class="form-label mt-3">Price</label>
-							<input class="form-control me-2" type="text" value="e{{menu.item.price}}">
+						<ul class="list-group list-group-flush">
+								<li><label for="formGroupExampleInput" class="form-label">Item name</label></li>
+									<input type="text" class="form-control me-2 mt-3" id="formGroupExampleInput" value="{{menu.item.name}}">
+								<li><label for="formGroupExampleInput" class="form-label mt-3">Quantity</label></li>
+								<input class="form-control me-2" name="quantity" type="number" value="{{menu.quantity}}">
+								<li><label for="formGroupExampleInput" class="form-label mt-3">Price</label>
+								<input class="form-control me-2 mb-3" type="text" value="e{{menu.item.price}}"></li>
+
+								</ul>
 						{{/each}}
+
 						</div>
 						<div class="mb-3">
 							<label for="formGroupExampleInput2" class="form-label">Total Price</label>
-							<input type="text"name="total_price" class="form-control" id="formGroupExampleInput2" value="e{{order.total_price}}">
+							<input type="text"name="total_price" class="form-control" id="formGroupExampleInput2" value="e{{total_price}}">
 						</div>
 							<button type="submit" class="btn btn-outline-secondary mt-3">Update</button>
 					</form>
